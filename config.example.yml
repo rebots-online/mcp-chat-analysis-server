@@ -1,0 +1,24 @@
+# Example configuration for Chat Analysis MCP Server
+
+# Neo4j Configuration
+neo4j:
+  url: "bolt://localhost:7687"  # Neo4j server URL
+  user: "neo4j"                 # Neo4j username
+  password: "your-password"     # Change this!
+
+# Qdrant Configuration
+qdrant:
+  url: "http://localhost:6333"  # Qdrant server URL
+  api_key: ""                   # Optional API key
+
+# Embedding Model Configuration
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cpu"  # or "cuda" for GPU
+  batch_size: 32
+  max_length: 512
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "logs/chat-analysis.log"

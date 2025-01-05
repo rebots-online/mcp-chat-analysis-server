@@ -24,7 +24,6 @@ wheels/
 venv/
 env/
 ENV/
-.env
 
 # IDE
 .idea/
@@ -50,12 +49,13 @@ htmlcov/
 *.pem
 *.key
 *.crt
-secrets.yml
-.env.*
+.env
+config.yml
 
-# Local development
-config.local.yml
-local_settings.py
+# Allow example files
+!.env.example
+!config.example.yml
+!examples/
 
 # Distribution
 dist/
