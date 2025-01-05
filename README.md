@@ -1,58 +1,30 @@
 # MCP Chat Analysis Server
 
-A Model Context Protocol (MCP) server that provides chat analysis capabilities through vector embeddings and knowledge graph operations. This server can be used to analyze chat conversations, perform semantic search, extract concepts, and analyze conversation metrics.
+A Model Context Protocol (MCP) server that enables semantic analysis of chat conversations through vector embeddings and knowledge graphs. This server provides tools for analyzing chat data, performing semantic search, extracting concepts, and analyzing conversation patterns.
 
-## Features
+## Key Features
 
-- Semantic analysis of chat conversations
-- Vector embeddings for similarity search
-- Knowledge graph operations
-- Conversation metrics analysis
-- Concept extraction and relationship mapping
+- 🔍 **Semantic Search**: Find relevant messages and conversations using vector similarity
+- 🕸️ **Knowledge Graph**: Navigate relationships between messages, concepts, and topics
+- 📊 **Conversation Analytics**: Analyze patterns, metrics, and conversation dynamics
+- 🔄 **Flexible Import**: Support for various chat export formats
+- 🚀 **MCP Integration**: Easy integration with Claude and other MCP-compatible systems
 
-## Tools
-
-### import_conversations
-Import and analyze chat conversations
-- Input:
-  - source_path: Path to chat export file
-  - format: Export format (openai_native, html, markdown, json)
-
-### semantic_search
-Search conversations by semantic similarity
-- Input:
-  - query: Search query text
-  - limit: Maximum number of results (default: 10)
-  - filters: Optional result filters
-
-### analyze_metrics
-Analyze conversation metrics
-- Input:
-  - conversation_id: ID of conversation to analyze
-  - metrics: Array of metrics to analyze
-    - message_frequency
-    - response_times
-    - topic_diversity
-    - conversation_depth
-    - interaction_patterns
-
-### extract_concepts
-Extract and analyze concepts from conversations
-- Input:
-  - conversation_id: ID of conversation to analyze
-  - min_relevance: Minimum relevance score (0-1, default: 0.5)
-
-## Installation
+## Quick Start
 
 ```bash
-# Using uv (recommended)
-uv pip install mcp-server-chat-analysis
+# Install the package
+pip install mcp-chat-analysis-server
 
-# Using pip
-pip install mcp-server-chat-analysis
+# Set up configuration
+cp config.example.yml config.yml
+# Edit config.yml with your database settings
+
+# Run the server
+python -m mcp_chat_analysis.server
 ```
 
-## Usage with Claude Desktop
+## MCP Integration
 
 Add to your `claude_desktop_config.json`:
 
@@ -60,7 +32,8 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "chat-analysis": {
-      "command": "mcp-server-chat-analysis",
+      "command": "python",
+      "args": ["-m", "mcp_chat_analysis.server"],
       "env": {
         "QDRANT_URL": "http://localhost:6333",
         "NEO4J_URL": "bolt://localhost:7687",
@@ -72,44 +45,100 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-## Environment Variables
+## Available Tools
 
-- `QDRANT_URL`: URL of Qdrant vector database
-- `QDRANT_API_KEY`: Optional API key for Qdrant
-- `NEO4J_URL`: URL of Neo4j database
-- `NEO4J_USER`: Neo4j username
-- `NEO4J_PASSWORD`: Neo4j password
-- `EMBEDDING_MODEL`: Name of sentence transformer model (default: "sentence-transformers/all-MiniLM-L6-v2")
-- `LOG_LEVEL`: Logging level (default: "INFO")
+### import_conversations
+Import and analyze chat conversations
+```python
+{
+    "source_path": "/path/to/export.zip",
+    "format": "openai_native"  # or html, markdown, json
+}
+```
 
-## Development
+### semantic_search
+Search conversations by semantic similarity
+```python
+{
+    "query": "machine learning applications",
+    "limit": 10,
+    "min_score": 0.7
+}
+```
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -e ".[dev]"
-   ```
-3. Run tests:
-   ```bash
-   pytest tests/
-   ```
+### analyze_metrics
+Analyze conversation metrics
+```python
+{
+    "conversation_id": "conv-123",
+    "metrics": [
+        "message_frequency",
+        "response_times",
+        "topic_diversity"
+    ]
+}
+```
+
+### extract_concepts
+Extract and analyze concepts
+```python
+{
+    "conversation_id": "conv-123",
+    "min_relevance": 0.5,
+    "max_concepts": 10
+}
+```
 
 ## Architecture
 
-The server is built with a modular architecture:
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed diagrams and documentation of:
+- System components and interactions
+- Data flow and processing pipeline
+- Storage schema and vector operations
+- Tool integration mechanism
 
+## Prerequisites
+
+- Python 3.8+
+- Neo4j database for knowledge graph storage
+- Qdrant vector database for semantic search
+- sentence-transformers for embeddings
+
+## Installation
+
+1. Install the package:
+```bash
+pip install mcp-chat-analysis-server
 ```
-mcp-server-chat-analysis/
-├── src/
-│   └── mcp_chat_analysis/
-│       ├── server.py          # MCP server implementation
-│       ├── tools/             # Tool implementations
-│       ├── processors/        # Data processors
-│       ├── embeddings/        # Vector embedding handlers
-│       ├── graph/            # Knowledge graph operations
-│       └── models/           # Data models
-├── tests/                    # Test suite
-└── examples/                 # Usage examples
+
+2. Set up databases:
+```bash
+# Using Docker (recommended)
+docker compose up -d
+```
+
+3. Configure the server:
+```bash
+cp .env.example .env
+# Edit .env with your settings
+```
+
+## Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/rebots-online/mcp-chat-analysis-server.git
+cd mcp-chat-analysis-server
+```
+
+2. Install development dependencies:
+```bash
+pip install -e ".[dev]"
+```
+
+3. Run tests:
+```bash
+pytest tests/
 ```
 
 ## Contributing
@@ -118,6 +147,21 @@ mcp-server-chat-analysis/
 2. Create a feature branch
 3. Submit a pull request
 
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+
 ## License
 
-MIT License - See LICENSE file for details
+MIT License - See [LICENSE](LICENSE) file for details.
+
+## Related Projects
+
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+- [Claude Desktop](https://github.com/anthropics/claude-desktop)
+- [Qdrant Vector Database](https://qdrant.tech/)
+- [Neo4j Graph Database](https://neo4j.com/)
+
+## Support
+
+- 📖 [Documentation](docs/)
+- 🐛 [Issue Tracker](https://github.com/rebots-online/mcp-chat-analysis-server/issues)
+- 💬 [Discussions](https://github.com/rebots-online/mcp-chat-analysis-server/discussions)
