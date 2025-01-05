@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-server-chat-analysis"
+version = "0.1.0"
+description = "MCP server for chat analysis using vector embeddings and knowledge graphs"
+readme = "README.md"
+authors = [
+    { name = "Robin L. M. Cheung", email = "your.email@example.com" }
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: General",
+]
+keywords = ["mcp", "chat", "analysis", "vector", "knowledge-graph"]
+dependencies = [
+    "modelcontextprotocol>=0.1.0",
+    "qdrant-client>=1.7.0",
+    "neo4j>=5.15.0",
+    "sentence-transformers>=2.2.2",
+    "pydantic>=2.5.0",
+    "python-dotenv>=1.0.0",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/mcp-server-chat-analysis"
+Documentation = "https://github.com/yourusername/mcp-server-chat-analysis#readme"
+Repository = "https://github.com/yourusername/mcp-server-chat-analysis.git"
+Issues = "https://github.com/yourusername/mcp-server-chat-analysis/issues"
+
+[project.scripts]
+mcp-server-chat-analysis = "mcp_chat_analysis.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_chat_analysis"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
