@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/rebots-online-mcp-chat-analysis-server-badge.png)](https://mseep.ai/app/rebots-online-mcp-chat-analysis-server)
+
 # MCP Chat Analysis Server
 
 A Model Context Protocol (MCP) server that enables semantic analysis of chat conversations through vector embeddings and knowledge graphs. This server provides tools for analyzing chat data, performing semantic search, extracting concepts, and analyzing conversation patterns.
